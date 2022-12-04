@@ -28,7 +28,7 @@ DRACULA_DISPLAY_GIT=${DRACULA_DISPLAY_GIT:-1}
 DRACULA_DISPLAY_TIME=${DRACULA_DISPLAY_TIME:-0}
 
 # Set to 1 to show the 'context' segment
-DRACULA_DISPLAY_CONTEXT=${DRACULA_DISPLAY_CONTEXT:-0}
+DRACULA_DISPLAY_CONTEXT=${DRACULA_DISPLAY_CONTEXT:-1}
 
 # Changes the arrow icon
 DRACULA_ARROW_ICON=${DRACULA_ARROW_ICON:-➜ }
@@ -102,16 +102,12 @@ PROMPT+='%F{green}%B$(dracula_time_segment)'
 
 # User context segment {{{
 dracula_context() {
-	if (( DRACULA_DISPLAY_CONTEXT )); then
-		if [[ -n "${SSH_CONNECTION-}${SSH_CLIENT-}${SSH_TTY-}" ]] || (( EUID == 0 )); then
-			echo '%n@%m '
-		else
-			echo '%n '
-		fi
-	fi
+        if (( DRACULA_DISPLAY_CONTEXT )); then
+                        echo '%n@%m '
+                fi
 }
+PROMPT+='%F{#42E66C}%B$(dracula_context)'
 
-PROMPT+='%F{magenta}%B$(dracula_context)'
 # }}}
 
 # Directory segment {{{
